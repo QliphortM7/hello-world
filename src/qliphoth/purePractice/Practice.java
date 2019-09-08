@@ -1,4 +1,4 @@
-package pureTest;
+package qliphoth.purePractice;
 
 import java.util.*;
 
@@ -157,12 +157,43 @@ public class Practice {
         return len;
     }
 
+    /**
+     *  48.最长不含重复字符的子字符串
+     *  很容易想到Fk定义为以k结尾的最长不重复字符字符串的长度
+     * @param s
+     * @return
+     */
+    public int maxSubString(String s) {
+        if(s==null||s.length()==0) {
+            return 0;
+        }
+        char[] array = s.toCharArray();
+        int[] maxLen = new int[array.length];
+        int begin = 0;
+        int end = 1;
+        Map<Character,Integer> map = new HashMap<>(26);
+        map.put(array[0],0);
+        maxLen[0] = 1;
+        for(int i=1;i<array.length;i++) {
+            if(!map.containsKey(array[i])) {
+                map.put(array[i],i);
+                maxLen[i] = maxLen[i-1]+1;
+            } else {
+                maxLen[i] = Math.min(i - map.get(array[i]), maxLen[i-1]+1);
+                map.put(array[i], i);
+            }
+        }
+        return maxLen[array.length-1];
+    }
+
     public static void main(String[] args) {
         Practice pc = new Practice();
-        String[] array = {"tars","rats","arts","star"};
-        for(int i=0;i<array.length;i++) {
-            System.out.println(pc.wordLength(array[0],array[i]));
+        int[] arr = {1,4,7,4,1,8,7,9};
+        int t = arr[0];
+        for(int i=1;i<arr.length;i++) {
+            t = t^arr[i];
         }
+        System.out.println(t);
     }
 
 }
