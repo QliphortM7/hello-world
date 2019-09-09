@@ -1,5 +1,8 @@
 package qliphoth.sortPractice;
 
+/**
+ * 归并排序：分治法，先分再排，自下而上
+ */
 public class margeSort {
 
     public void sort(int[] array, int[] tmp, int begin, int end) {

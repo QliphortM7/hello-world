@@ -1,5 +1,7 @@
 package qliphoth.purePractice;
 
+import qliphoth.DpPractice;
+
 import java.util.*;
 
 public class Practice {
@@ -44,45 +46,6 @@ public class Practice {
         }
     }
 
-    /**
-     *  动态规划，最重要的是重新定义问题，找到Fk的定义与其递推表达式
-     *  首先将数组排序，定义Fk为以第k个数字结尾的最长整除集合数字个数
-     * @param nums
-     * @return
-     */
-    public static List<Integer> largestDivisibleSubset(int[] nums) {
-        List<Integer> divisibleList = new ArrayList<>();
-        if(nums==null||nums.length==0) {
-            return divisibleList;
-        }
-        Arrays.sort(nums);
-        int[] maxLenArray = new int[nums.length];
-        Arrays.fill(maxLenArray, 1); // 以i结尾最长整除集合的最短长度为1
-        maxLenArray[0] = 1;
-        for(int i=1;i<nums.length;i++) {
-            for(int j=i-1;j>=0;j--) {
-                if(nums[i]%nums[j]==0) { // 从0-i全部遍历一遍
-                    maxLenArray[i] = (maxLenArray[j] + 1)>maxLenArray[i]?(maxLenArray[j] + 1):maxLenArray[i];
-                }
-            }
-        }
-        int maxLen = 0;
-        int maxIndex = 0;
-        for(int i=0;i<maxLenArray.length;i++) {
-            if(maxLenArray[i]>maxLen) {
-                maxIndex = i;
-                maxLen = maxLenArray[i];
-            }
-        }
-        for(int i=maxIndex;maxLen>0;i--) {
-            if(nums[maxIndex]%nums[i]==0&&maxLenArray[i]==maxLen) {
-                divisibleList.add(nums[i]);
-                maxLen--; // 按照maxLen大小依次递减判断
-            }
-        }
-        Collections.reverse(divisibleList);
-        return divisibleList;
-    }
 
     /**
      *  构造端点值-将问题转化为二分查找 （一种技巧）
@@ -188,12 +151,8 @@ public class Practice {
 
     public static void main(String[] args) {
         Practice pc = new Practice();
-        int[] arr = {1,4,7,4,1,8,7,9};
-        int t = arr[0];
-        for(int i=1;i<arr.length;i++) {
-            t = t^arr[i];
-        }
-        System.out.println(t);
+        int[] coins = {2,5,10};
+        System.out.println(DpPractice.coinChange(coins,3));
     }
 
 }
