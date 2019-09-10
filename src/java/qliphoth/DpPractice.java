@@ -27,7 +27,7 @@ public class DpPractice {
         for(int i=1;i<nums.length;i++) {
             for(int j=i-1;j>=0;j--) {
                 if(nums[i]%nums[j]==0) { // 从0-i全部遍历一遍
-                    maxLenArray[i] = (maxLenArray[j] + 1)>maxLenArray[i]?(maxLenArray[j] + 1):maxLenArray[i];
+                    maxLenArray[i] = Math.max((maxLenArray[j] + 1), maxLenArray[i]);
                 }
             }
         }
@@ -107,7 +107,8 @@ public class DpPractice {
 
     /**
      * leetcode.416
-     * 分割成两个子集，使得两个子集的元素和相等 → 存在子集{a1,a2…ak}使得∑ai=∑Ai/2 → 定义Fi为以i结尾不大于∑Ai/2的最大值
+     * 分割成两个子集，使得两个子集的元素和相等 → 存在子集{a1,a2…ak}使得∑ai=∑Ai/2
+     * → 定义Fi为以i结尾不大于∑Ai/2的最大值 → 0-1背包问题
      * @param nums
      * @return
      */
@@ -124,10 +125,11 @@ public class DpPractice {
         }
         int targetSum = sum>>1;
         int[] arr = new int[targetSum+1];
-        arr[0] = nums[0];
         for(int i=1;i<nums.length;i++) {
-
+            for(int j=targetSum;j>=nums[i];j--) {
+                arr[j] = Math.max(arr[j], arr[j-nums[i]]+nums[i]);
+            }
         }
-        return false;
+        return arr[targetSum] == targetSum;
     }
 }
