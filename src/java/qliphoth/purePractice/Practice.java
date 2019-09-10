@@ -151,8 +151,8 @@ public class Practice {
 
     public static void main(String[] args) {
         Practice pc = new Practice();
-        int[] coins = {2,5,10};
-        System.out.println(DpPractice.coinChange(coins,3));
+        int[] coins = {1,2,3,4,5,6,7};
+        System.out.println(DpPractice.canPartition(coins));
     }
 
 }
