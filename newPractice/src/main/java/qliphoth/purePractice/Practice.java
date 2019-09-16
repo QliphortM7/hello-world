@@ -46,107 +46,31 @@ public class Practice {
         }
     }
 
-
     /**
-     *  构造端点值-将问题转化为二分查找 （一种技巧）
-     *  *如果船在承载力为K的条件下可以完成在D天内送达包裹的任务，那么任何承载力大于K的条件下依然也能完成任务
-     * @param weights
-     * @param D
-     * @return
+     * leetcode.17  电话号码的字母组合
+     * 普通递归
      */
-    public int shipWithinDays(int[] weights, int D) {
-        if(weights==null||weights.length==0) {
-            return 0;
+    public static String[] arr = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    public List<String> letterCombinations(String digits) {
+        List<String> list = new ArrayList<>();
+        getCombList(digits, "",list);
+        return list;
+    }
+
+    private void getCombList(String digits, String a, List<String> list) {
+        if(digits==null||digits.length()==0) {
+            return;
         }
-        int sum = 0;
-        int maxNum = 0;
-        for(int i:weights) {
-            sum += i;
-            if(i>maxNum) {
-                maxNum = i;
-            }
-        }
-        // 二分查找寻找一个上界：条件large>small, large = middle/ small = middle+1
-        int mid = (maxNum + sum)>>1;
-        while(sum>maxNum) {
-            if(isAvailable(weights,mid,D)) {
-                sum = mid;
+        int num = Integer.parseInt(digits.substring(0,1));
+        char[] chars = arr[num].toCharArray();
+        for(char c:chars) {
+            String b = a + c;
+            if(digits.length()==1) {
+                list.add(b);
             } else {
-                maxNum = mid + 1;
-            }
-            mid = (maxNum + sum)>>1;
-        }
-        return mid;
-    }
-
-    private boolean isAvailable(int[] weights, int ship, int D) {
-        int i = 0;
-        int sum = 0;
-        int count = 1;
-        while (i<weights.length) {
-            if(weights[i]>ship) {
-                return false;
-            }
-            if((sum + weights[i])>ship) {
-                count++;
-                sum = weights[i];
-            } else {
-                sum += weights[i];
-            }
-            i++;
-        }
-        return count <= D;
-    }
-
-    public int numSimilarGroups(String[] A) {
-        for(int i=0;i<A.length;i++) {
-            Set<String> wordSet = new HashSet<>();
-            for(int j=i;j<A.length;j++) {
-
+                getCombList(digits.substring(1,digits.length()),b,list);
             }
         }
-        return 0;
-    }
-
-    public int wordLength(String word1, String word2) {
-        char[] characters1 = word1.toCharArray();
-        char[] characters2 = word2.toCharArray();
-        int len = 0;
-        for(int i=0;i<word1.length();i++) {
-            if(characters1[i]-characters2[i]!=0){
-                len++;
-            }
-        }
-        return len;
-    }
-
-    /**
-     *  48.最长不含重复字符的子字符串
-     *  很容易想到Fk定义为以k结尾的最长不重复字符字符串的长度
-     * @param s
-     * @return
-     */
-    public int maxSubString(String s) {
-        if(s==null||s.length()==0) {
-            return 0;
-        }
-        char[] array = s.toCharArray();
-        int[] maxLen = new int[array.length];
-        int begin = 0;
-        int end = 1;
-        Map<Character,Integer> map = new HashMap<>(26);
-        map.put(array[0],0);
-        maxLen[0] = 1;
-        for(int i=1;i<array.length;i++) {
-            if(!map.containsKey(array[i])) {
-                map.put(array[i],i);
-                maxLen[i] = maxLen[i-1]+1;
-            } else {
-                maxLen[i] = Math.min(i - map.get(array[i]), maxLen[i-1]+1);
-                map.put(array[i], i);
-            }
-        }
-        return maxLen[array.length-1];
     }
 
     public static void main(String[] args) {
@@ -169,7 +93,6 @@ public class Practice {
         } finally {
             System.out.println("1");
         }
-
     }
 
 }
