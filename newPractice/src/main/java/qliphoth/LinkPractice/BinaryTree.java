@@ -1,4 +1,4 @@
-package qliphoth.TreePractice;
+package qliphoth.LinkPractice;
 
 public class BinaryTree {
 
