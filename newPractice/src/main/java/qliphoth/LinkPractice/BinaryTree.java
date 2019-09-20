@@ -1,5 +1,9 @@
 package qliphoth.LinkPractice;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
 public class BinaryTree {
 
     public class TreeNode {
@@ -7,6 +11,42 @@ public class BinaryTree {
        TreeNode left;
        TreeNode right;
        TreeNode(int x) { val = x; }
+    }
+
+    /**
+     *  二叉树中序遍历
+     */
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        if(root==null) {
+            return list;
+        }
+        Stack<TreeNode> s = new Stack<>();
+        while(root!=null||!s.empty()) {
+            while(root!=null){
+                s.push(root);
+                root = root.left;
+            }
+            TreeNode node = s.pop();
+            list.add(node.val);
+            root = node.right;
+        }
+        return list;
+    }
+
+    /**
+     *  二叉树后序遍历
+     */
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        if(root==null) {
+            return list;
+        }
+        Stack<TreeNode> s = new Stack<>();
+        while(root!=null||!s.empty()) {
+
+        }
+        return list;
     }
 
     /**

@@ -1,5 +1,8 @@
 package qliphoth.purePractice;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -75,23 +78,17 @@ public class Practice {
 
     public static void main(String[] args) {
         Practice pc = new Practice();
-        Map<String, String> map = new HashMap<String, String>(4);
-        map.put("hahaha", "hollischuang");
-        map.put("www","wwwww");
-        map.put("rrrr","tttt");
-        try {
-            Class<?> mapType = map.getClass();
-            Method capacity = mapType.getDeclaredMethod("capacity");
-            capacity.setAccessible(true);
-            System.out.println("capacity : " + capacity.invoke(map));
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e1) {
-            e1.printStackTrace();
-        } catch (InvocationTargetException e2) {
-            e2.printStackTrace();
-        } finally {
-            System.out.println("1");
+        try (BufferedReader br =
+                     new BufferedReader(new FileReader("name.txt"))) {
+            try{
+                BufferedReader br2 =
+                        new BufferedReader(new FileReader("name1.txt"));
+                System.out.println("catch0");
+            } catch (IOException e) {
+                System.out.println("catch1");
+            }
+        }catch (IOException e) {
+            System.out.println("catch2");
         }
     }
 
